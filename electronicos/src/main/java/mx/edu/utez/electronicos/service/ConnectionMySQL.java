@@ -12,7 +12,7 @@ public class ConnectionMySQL {
         String timezone = "UTC-5";
         String url = String.format("jdbc:mysql://%s:%s/%s?allowPublicKeyRetrieval=true&useSSL=%s&serverTimezone=%s", host, port, database, useSSL, timezone);
         DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-        return DriverManager.getConnection(url, "root", "C1i2$3co");
+        return DriverManager.getConnection(url, "root", "");
     }
 
     public static void closeConnection(Connection con, CallableStatement cstm, ResultSet rs) {
@@ -31,6 +31,7 @@ public class ConnectionMySQL {
 
         } catch (SQLException e) {
         }
+        System.out.println("close1");
     }
 
     public static void closeConnection(Connection con, CallableStatement cstm) {
@@ -45,6 +46,7 @@ public class ConnectionMySQL {
 
         } catch (SQLException e) {
         }
+        System.out.println("close2");
     }
 
 }

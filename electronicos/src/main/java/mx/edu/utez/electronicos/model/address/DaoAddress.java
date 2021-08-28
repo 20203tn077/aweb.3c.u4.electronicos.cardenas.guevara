@@ -29,6 +29,7 @@ public class DaoAddress {
         } finally {
             ConnectionMySQL.closeConnection(con, cstm);
         }
+        System.out.println(id);
         return id;
     }
 
@@ -37,7 +38,7 @@ public class DaoAddress {
         BeanAddress address;
         try {
             con = ConnectionMySQL.getConnection();
-            cstm = con.prepareCall("call getAllAdresses()");
+            cstm = con.prepareCall("call getAllAddresses()");
             rs = cstm.executeQuery();
             while (rs.next()) {
                 address = new BeanAddress(

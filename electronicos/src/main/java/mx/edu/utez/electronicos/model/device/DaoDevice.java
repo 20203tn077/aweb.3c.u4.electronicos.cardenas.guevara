@@ -32,11 +32,13 @@ public class DaoDevice {
     }
 
     public boolean deleteDevice(int id) {
+        System.out.println(id);
         boolean flag = false;
         try {
             con = ConnectionMySQL.getConnection();
-            cstm = con.prepareCall("call createDevice(?)");
+            cstm = con.prepareCall("call deleteDevice(?)");
             cstm.setInt(1, id);
+            flag = cstm.execute();
         } catch (SQLException e) {
             System.out.println("DaoDevice - error: "+e.getMessage());
         } finally {
@@ -64,7 +66,7 @@ public class DaoDevice {
                 );
                 device = new BeanDevice(
                         rs.getInt(1),
-                        rs.getString(1),
+                        rs.getString(2),
                         address,
                         rs.getString(4),
                         rs.getByte(5)
@@ -84,6 +86,7 @@ public class DaoDevice {
         try {
             con = ConnectionMySQL.getConnection();
             cstm = con.prepareCall("call getDeviceById(?)");
+            cstm.setInt(1, id);
             rs = cstm.executeQuery();
             if (rs.next()) {
                 BeanAddress address = new BeanAddress(
@@ -96,7 +99,7 @@ public class DaoDevice {
                 );
                 device = new BeanDevice(
                         rs.getInt(1),
-                        rs.getString(1),
+                        rs.getString(2),
                         address,
                         rs.getString(4),
                         rs.getByte(5)
@@ -114,7 +117,7 @@ public class DaoDevice {
         boolean flag = false;
         try {
             con = ConnectionMySQL.getConnection();
-            cstm = con.prepareCall("call createDevice(?,?,?)");
+            cstm = con.prepareCall("call updateDevice(?,?,?)");
             cstm.setInt(1, device.getId());
             cstm.setString(2, device.getName());
             cstm.setInt(3,device.getAddress().getId());
